@@ -95,7 +95,7 @@
       },
       {
         "type": "vagrant-cloud",
-        "box_tag": "geerlingguy/ubuntu1804",
+        "box_tag": "hootieben/ubuntu1804-devbox",
         "version": "{{user `version`}}"
       }
     ]

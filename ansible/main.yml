@@ -8,9 +8,80 @@
     - geerlingguy.packer-debian
 
   tasks:
-    - apt: "name={{ item }} state=installed"
-      with_items:
-        - git
-        - wget
-        - curl
-        - vim
+  - name: install essential dependencies
+    apt: 
+      pkg: "{{ item }}"
+      state: present
+      update_cache: yes
+    with_items:
+      - git
+      - wget
+      - curl
+      - python-pip
+      - unzip
+      - tree
+      - gnupg2
+      - gnupg-agent
+      - apt-transport-https
+      - ca-certificates
+      - software-properties-common
+      - jq
+      - python-dev
+      - python-pip
+      - python3-dev
+      - python3-pip
+
+  - name: Install awscli
+    pip:
+      name: awscli
+
+  - name: Install Neovim Repo
+    apt_repository:
+      repo: ppa:neovim-ppa/stable
+      state: present
+
+  - name: Install neovim
+    apt:
+      name: neovim
+      state: present
+
+  - name: Update alternatives
+    become: yes
+    alternatives:
+      name: "{{ item }}"
+      path: /usr/bin/nvim
+    with_items:
+      - ex
+      - rview
+      - rvim
+      - vi
+      - view
+      - vim
+      - vimdiff
+
+  - name: Install Docker GPG Key
+    apt_key:
+      id: 0EBFCD88
+      url: https://download.docker.com/linux/ubuntu/gpg
+      state: present
+
+  - name: Install Docker Repo
+    apt_repository:
+      repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable 
+      state: present
+
+  - name: Install Docker
+    apt:
+      name: docker-ce
+      state: present
+
+  - name: Install go1.11
+    unarchive:
+      src: https://dl.google.com/go/go1.11.linux-amd64.tar.gz
+      dest: /usr/local
+      remote_src: True
+
+  - name: Add Go exec path
+    lineinfile:
+      path: /etc/profile
+      line: 'export PATH=$PATH:/usr/local/go/bin'
