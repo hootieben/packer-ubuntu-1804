@@ -1,10 +1,12 @@
+ This repo was forked from the inimitable geerlingguy's excellent Ubuntu 18.04 packer tool. I've only made some minor additions for my own personal use. Feel free to use this as you wish.
+
 # Packer Example - Ubuntu 18.04 minimal Vagrant Box
 
 **Current Ubuntu Version Used**: 18.04.1
 
 **Pre-built Vagrant Box**:
 
-  - [`vagrant init geerlingguy/ubuntu1804`](https://vagrantcloud.com/geerlingguy/boxes/ubuntu1804)
+  - [`vagrant init hootieben/ubuntu1804-devbox`](https://app.vagrantup.com/hootieben/boxes/ubuntu1804-devbox)
 
 This example build configuration installs and configures Ubuntu 18.04 x86_64 minimal using Ansible, and then generates a Vagrant box file for VirtualBox.
 
